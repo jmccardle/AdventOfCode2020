@@ -72,6 +72,11 @@ field_validations = {
 }
 
 def is_valid_data(pspt:dict, fv:dict=field_validations) -> bool:
+    # This deserves breaking out.
+    # fv[f] : looks in the field_validations dict above to get a lambda (validation function)
+    # pspt[f] : looks in the passport for the value of the field
+    # fv[f](pspt[f]) : calls the field-specific validation function on the field's value
+    # all([...] for f in pspt]) : returns True only if every field passes the check above
     return all([fv[f](pspt[f]) for f in pspt])
 
 valid = 0
